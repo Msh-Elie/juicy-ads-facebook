@@ -225,15 +225,6 @@
       white-space: nowrap;
     }
 
-    .countdown-title {
-      font-size: 11px;
-      font-weight: 600;
-      color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
     .countdown-digits {
       display: flex;
       align-items: center;
@@ -396,7 +387,6 @@
     @media (max-width: 480px) {
       .card { width: 100%; border-radius: 0; }
       .cover-name-row h1 { font-size: 38px; }
-      .countdown-title { font-size: 10px; }
       .countdown-banner { padding: 8px 12px; gap: 8px; }
       .cd-box { width: 34px; height: 34px; font-size: 18px; }
       .cd-sep { font-size: 16px; margin-bottom: 12px; }
@@ -465,8 +455,7 @@
     <!-- COUNTDOWN BANNER -->
     <div class="countdown-banner">
       <div class="countdown-left">
-        <span class="countdown-label">🎁 SPECIAL OFFER</span>
-        <span class="countdown-title">Offre limitée — dépêche-toi !</span>
+        <span class="countdown-label">🎁 GRATUIT PENDANT :</span>
       </div>
       <div class="countdown-digits">
         <div class="cd-unit">
@@ -519,8 +508,6 @@
         </div>
       </a>
 
-      
-
     </div>
 
     <div class="page-footer">
@@ -552,7 +539,7 @@
 
   tick();
 
-  // ── Sensitive cards (logique simplifiée et corrigée) ───────
+  // ── Sensitive cards ────────────────────────────────────────
   (function() {
     const sensitiveCards = document.querySelectorAll('.sensitive-card');
 
@@ -561,15 +548,11 @@
 
       card.addEventListener('click', function(e) {
         if (!revealed) {
-          // 1er clic : on montre l'overlay, on bloque le lien
           e.preventDefault();
           card.classList.add('revealed');
           revealed = true;
         }
-        // Si déjà révélé (2e clic) : on laisse le navigateur suivre le href
-        // (pas de preventDefault)
         else {
-          // Tracker l'événement Facebook
           const label = card.getAttribute('data-label') || 'link';
           if (typeof fbq !== 'undefined') {
             fbq('track', 'Lead', {
@@ -577,10 +560,8 @@
               content_category: 'sensitive_content'
             });
           }
-          // On remet à zéro pour la prochaine visite
           card.classList.remove('revealed');
           revealed = false;
-          // Le lien s'ouvre normalement car on n'a pas appelé preventDefault()
         }
       });
     });
